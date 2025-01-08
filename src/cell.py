@@ -1,5 +1,4 @@
-from line import Line
-from point import Point
+from graphics import Line, Point
 
 
 class Cell:
@@ -17,23 +16,22 @@ class Cell:
     def draw(self, x1, y1, x2, y2):
         if self._win is None:
             return
-
-        top_left = Point(x1, y1)
-        top_right = Point(x2, y1)
-        bottom_left = Point(x1, y2)
-        bottom_right = Point(x2, y2)
+        self._x1 = x1
+        self._x2 = x2
+        self._y1 = y1
+        self._y2 = y2
         if self.has_left_wall:
-            left_wall = Line(top_left, bottom_left)
-            self._win.draw_line(left_wall)
-        if self.has_right_wall:
-            right_wall = Line(top_right, bottom_right)
-            self._win.draw_line(right_wall)
+            line = Line(Point(x1, y1), Point(x1, y2))
+            self._win.draw_line(line)
         if self.has_top_wall:
-            top_wall = Line(top_left, top_right)
-            self._win.draw_line(top_wall)
+            line = Line(Point(x1, y1), Point(x2, y1))
+            self._win.draw_line(line)
+        if self.has_right_wall:
+            line = Line(Point(x2, y1), Point(x2, y2))
+            self._win.draw_line(line)
         if self.has_bottom_wall:
-            bottom_wall = Line(bottom_left, bottom_right)
-            self._win.draw_line(bottom_wall)
+            line = Line(Point(x1, y2), Point(x2, y2))
+            self._win.draw_line(line)
 
     def draw_move(self, to_cell, undo=False):
         half_length = abs(self._x2 - self._x1) // 2
