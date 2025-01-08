@@ -23,6 +23,10 @@ class Window:
     def close(self):
         self.__running = False
 
+    def draw_line(self, line, fill_color):
+        line.draw(self.__canvas, fill_color)
+
+
 if __name__ == "__main__":
     window = Window(800, 600)
     window.wait_for_close()
